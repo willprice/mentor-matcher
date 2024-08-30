@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for mentor-matcher on 2024-08-30T15:04:45+01:00
+# fly.toml app configuration file generated for mentor-matcher-twilight-lake-6255 on 2024-08-30T15:16:13+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,8 +7,6 @@ app = 'mentor-matcher'
 primary_region = 'lhr'
 
 [build]
-  [build.args]
-    GO_VERSION = '1.20'
 
 [env]
   PORT = '8080'

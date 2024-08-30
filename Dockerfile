@@ -11,4 +11,5 @@ RUN go build -v -o /mentor-matcher .
 FROM debian:bookworm
 
 COPY --from=builder /mentor-matcher /usr/local/bin/
-CMD ["mentor-matcher", "--port", "80"]
+# fly.io expects us to listen on 0.0.0.0:8080
+CMD ["mentor-matcher", "--port", "8080"]
