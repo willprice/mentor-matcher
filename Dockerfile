@@ -12,4 +12,4 @@ FROM debian:bookworm
 
 COPY --from=builder /mentor-matcher /usr/local/bin/
 # fly.io expects us to listen on 0.0.0.0:8080
-CMD ["mentor-matcher", "--port", "8080"]
+CMD ["mentor-matcher"]

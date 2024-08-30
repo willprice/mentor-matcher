@@ -1,39 +1,29 @@
 package main
 
 import (
-    "fmt"
-    "log"
-    "os"
-    "net/http"
-    "github.com/urfave/cli/v2"
+	"log"
+	"net/http"
+
+	"github.com/joho/godotenv"
+
+	"github.com/willprice/mentor-matcher/platform/authenticator"
+	"github.com/willprice/mentor-matcher/platform/router"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
-}
-
 func main() {
-    app := &cli.App{
-        Name:  "mentor-matcher",
-        Usage: "Run the mentor matcher server",
-        Flags: []cli.Flag{
-            &cli.IntFlag{
-                Name:  "port",
-                Value: 8080,
-                Usage: "Port to listen on",
-            },
-        },
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("Failed to load the env vars: %v", err)
+	}
 
-        Action: func(ctx *cli.Context) error {
-            http.HandleFunc("/", handler)
-            addr := fmt.Sprintf(":%v", ctx.Int("port"))
-            log.Printf("Starting server on %v", addr)
-            log.Fatal(http.ListenAndServe(addr, nil))
-            return nil
-        },
-    }
+	auth, err := authenticator.New()
+	if err != nil {
+		log.Fatalf("Failed to initialize the authenticator: %v", err)
+	}
 
-    if err := app.Run(os.Args); err != nil {
-        log.Fatal(err)
-    }
+	rtr := router.New(auth)
+
+	log.Print("Server listening on http://localhost:8080/")
+	if err := http.ListenAndServe("0.0.0.0:8080", rtr); err != nil {
+		log.Fatalf("There was an error with the http server: %v", err)
+	}
 }
