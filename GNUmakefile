@@ -9,3 +9,13 @@ mentor-matcher: $(GO_SRC)
 .PHONY: clean
 clean:
 	@rm -f mentor-matcher
+
+.PHONY: docker-up
+docker-up:
+	docker-compose build
+	docker-compose up -d
+
+.PHONY: docker-down
+docker-down:
+	docker-compose down
+
