@@ -9,7 +9,8 @@ import (
 
 	"github.com/willprice/mentor-matcher/platform/authenticator"
 	"github.com/willprice/mentor-matcher/platform/middleware"
-	"github.com/willprice/mentor-matcher/web/app/callback"
+	"github.com/willprice/mentor-matcher/web/app/callback"	
+	"github.com/willprice/mentor-matcher/web/app/healthcheck"
 	"github.com/willprice/mentor-matcher/web/app/home"
 	"github.com/willprice/mentor-matcher/web/app/login"
 	"github.com/willprice/mentor-matcher/web/app/logout"
@@ -35,6 +36,7 @@ func New(auth *authenticator.Authenticator) *gin.Engine {
 	router.GET("/callback", callback.Handler(auth))
 	router.GET("/user", middleware.IsAuthenticated, user.Handler)
 	router.GET("/logout", logout.Handler)
+	router.GET("/healthcheck", healthcheck.Handler)
 
 	return router
 }
