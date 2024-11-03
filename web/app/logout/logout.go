@@ -16,9 +16,9 @@ func Handler(ctx *gin.Context) {
 		return
 	}
 
-	scheme := "http"
-	if ctx.Request.TLS != nil {
-		scheme = "https"
+	scheme := os.Getenv("TRANSPORT_SCHEME")
+	if scheme == "" {
+		scheme = "http"
 	}
 
 	returnTo, err := url.Parse(scheme + "://" + ctx.Request.Host)
