@@ -24,3 +24,6 @@ go.work.sum
 # env file
 .env
 /mentor-matcher
+
+# Local SQLite database file
+*.db
