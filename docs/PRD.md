@@ -31,8 +31,9 @@ mentees/mentors for their adverts.
 ## Version 1
 * User can sign up to create a new account
 * User can login to existing account
+* User can recover their account if they have lost their password
 * User can post a mentoring listing 
 * User can browse mentoring listings and filter by keywords and tags
 * User can respond to an advert to initiate a dialog with some short message
-* Advert poster can approve dialog request to release email address to
-  requesting user
+  which will be emailed to the advertisement poster. The reply-to on the email
+  will be the applicant's email address.
